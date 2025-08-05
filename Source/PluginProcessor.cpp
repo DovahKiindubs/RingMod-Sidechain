@@ -27,10 +27,12 @@ RMSCAudioProcessor::RMSCAudioProcessor()
 #endif
 {
 
-    mainvisual.setRepaintRate(60);  
-    mainvisual.setBufferSize(256); 
-    sidechainvisual.setRepaintRate(60);
-    sidechainvisual.setBufferSize(256);
+    mainvisual.setRepaintRate(30);  
+    mainvisual.setBufferSize(512); 
+	mainvisual.setSamplesPerBlock(256);
+    sidechainvisual.setRepaintRate(30);
+    sidechainvisual.setBufferSize(512);
+	sidechainvisual.setSamplesPerBlock(256);
 }
 
 RMSCAudioProcessor::~RMSCAudioProcessor()
@@ -131,8 +133,8 @@ void RMSCAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::M
 {
     juce::ScopedNoDenormals noDenormals;
 
-    auto mainInput = getBusBuffer(buffer, true, 0); // Ö÷ÊäÈë
-    auto sideInput = getBusBuffer(buffer, true, 1); // Sidechain ÊäÈë
+    auto mainInput = getBusBuffer(buffer, true, 0); 
+    auto sideInput = getBusBuffer(buffer, true, 1); 
     auto output = getBusBuffer(buffer, false, 0);
 
     const int numSamples = buffer.getNumSamples();
